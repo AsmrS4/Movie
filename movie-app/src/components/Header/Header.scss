@@ -20,12 +20,12 @@
             h4 {
                 margin: 0;
                 margin-left: 10px;
-                text-transform: uppercase;   
+                text-transform: uppercase;
                 letter-spacing: normal;
                 color: $white-color
-                
             }
-            strong{
+
+            strong {
                 color: $orange-color;
             }
         }
@@ -36,12 +36,14 @@
         @include flex-row;
         align-items: center;
         justify-content: space-between;
+
         a {
             color: $non-active-color !important;
             margin-right: 20px;
             text-transform: uppercase;
             font-size: 14px;
             cursor: pointer;
+
             &.active {
                 color: $orange-color !important;
             }
@@ -51,11 +53,14 @@
 
     .movie-header__right-child {
         cursor: pointer;
+
         div {
-            span {
-                margin: 0;
-                margin-right: 20px;
-                color: $white-color;
+            a {
+                span {
+                    margin: 0;
+                    margin-right: 20px;
+                    color: $white-color;
+                }
             }
         }
     }

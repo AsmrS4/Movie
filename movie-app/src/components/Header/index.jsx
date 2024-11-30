@@ -8,20 +8,22 @@ const Header = () => {
         <>
             <header className="movie-header">
                 <div className="movie-header__left-child">
-                    <div className="movie-logo">
-                        <img width={40} src={logo}></img>
-                        <h4><strong>Кино</strong>мания</h4>
-                    </div>
+                    <Link to='/'>
+                        <div className="movie-logo">
+                            <img width={40} src={logo}></img>
+                            <h4><strong>Кино</strong>мания</h4>
+                        </div>
+                    </Link>
                 </div>
                 <div className="movie-header__center-child">
-                    <a className='active'>Фильмы</a>
-                    <a>Избранное</a>
-                    <a>Профиль</a>
+                    <Link to='/' className='active'>Фильмы</Link>
+                    <Link to='/favorites'>Избранное</Link>
+                    <Link to='/profile'>Профиль</Link>
                 </div>
                 <div className="movie-header__right-child">
                     <div className="d-flex flex-row">
-                        <span>Войти</span>
-                        <span>Регистрация</span>
+                        <Link to='/login' ><span>Войти</span></Link>
+                        <Link to='/registration' ><span>Регистрация</span></Link>
                     </div>
                 </div>
             </header>
