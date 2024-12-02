@@ -21,6 +21,12 @@ const Registration = () => {
                             placeholderText={'example@mail.ru'}
                             isRequired
                         />
+                        <InputField
+                            id={'userName'}
+                            labelText='ФИО'
+                            inputType={'text'}
+                            isRequired
+                        />
                         <div className='input-field row row-cols-2'>
                             <div className='col'>
                                 <label for="gender" class="form-label">Пол</label>

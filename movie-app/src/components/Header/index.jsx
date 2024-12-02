@@ -24,7 +24,7 @@ const Header = () => {
                     <div className="movie-header__left-child">
                         <Link to='/movies'>
                             <div className="movie-logo">
-                                <img width={40} src={logo}></img>
+                                <img width={40} src={logo} alt={'Логотип'}></img>
                                 <h4><strong>Кино</strong>мания</h4>
                             </div>
                         </Link>
@@ -52,8 +52,8 @@ const Header = () => {
                                     <Link to='/registration' ><span>Регистрация</span></Link>
                                 </> :
                                 <>
-                                    <span>Войти</span>
-                                    <span onClick={logout}>Выйти</span>
+                                    <Link to='/profile' ><span>Авторизирован как - userName</span></Link>
+                                    <Link><span onClick={logout}>Выйти</span></Link>
                                 </>
                             }
                         </div>

@@ -64,6 +64,67 @@ a {
 
 }
 
+.profile-wrapper {
+    max-width: 768px;
+    height: 100vh;
+    width: 100%;
+    padding: 10px;
+    .profile-container {
+        width: 100%;
+        @include flex-row;
+        align-items: start;
+        justify-content: space-between;
+
+        .profile-container__img {
+            @include flex-column;
+            width: 228px;
+            img {
+                width: 100%;
+                border-radius: 10px;
+                margin-bottom: 20px;
+            }
+
+            h5, h6 {
+                color: $white-color;
+            }
+        }
+
+        .profile-container__form {
+            @include flex-column;
+            align-items: center;
+            box-sizing: border-box;
+            width: 450px;
+
+            .input-field {
+                margin-bottom: 15px;
+                width: 100%;
+
+                label {
+                    color: $place-holder-color;
+
+                }
+
+                input,
+                select {
+                    background-color: #282828 !important;
+                    border: 1px solid #595959;
+                    color: $white-color;
+                    width: 100%;
+
+                    &::placeholder {
+                        color: #595959 !important;
+                    }
+                }
+            }
+            
+            .btn {
+                width: 100%;
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
 .login-wrapper,
 .registration-wrapper {
     height: 100vh;
@@ -74,7 +135,7 @@ a {
         color: $white-color;
     }
 
-    .login-form ,
+    .login-form,
     .registration-form {
         box-sizing: border-box;
         width: 100%;
@@ -102,8 +163,14 @@ a {
     }
 }
 
-button {
-    background-color: $orange-color !important;
+button.btn {
+    background-color: inherit !important;
     border: 1px solid $orange-color !important;
-    color: $white-color !important;
+    color: $orange-color !important;
+    transition: 0.4s ease-in-out;
+
+    &:hover {
+        background-color: $orange-color !important;
+        color: $white-color !important;
+    }
 }
