@@ -37,7 +37,8 @@ a {
     flex: 1;
 
     box-sizing: border-box;
-    padding: 40px 0;
+    padding: 140px 0;
+    padding-bottom: 40px;
     @include flex-column;
     @include all-centered;
 
