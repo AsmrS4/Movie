@@ -1,19 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const InputField = (
     {
-        fieldId,
+        id,
         labelText,
         inputType,
         placeholderText = '',
-        isRequired = false
+        isRequired = false,
+        value = '',
+        onChangeInput
     }
 ) => {
+    const handleInput = (e) => {
+        onChangeInput(e.target.value);
+    }
+
     return (
         <>
             <div className='input-field'>
-                <label for={fieldId} class="form-label">{labelText}</label>
-                <input type={inputType} class="form-control" placeholder={placeholderText} id={fieldId} required={isRequired} />
+                <label htmlFor={id} className="form-label">{labelText}</label>
+                <input type={inputType} className="form-control" onChange={handleInput} value={value} placeholder={placeholderText} id={id} required={isRequired} />
             </div>
         </>
     )

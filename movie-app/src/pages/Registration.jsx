@@ -9,13 +9,13 @@ const Registration = () => {
                     <h2>Регистрация</h2>
                     <form className='registration-form'>
                         <InputField
-                            fieldId={'login'}
+                            id={'login'}
                             labelText='Логин'
                             inputType={'text'}
                             isRequired
                         />
                         <InputField
-                            fieldId={'email'}
+                            id={'email'}
                             labelText='Email'
                             inputType={'email'}
                             placeholderText={'example@mail.ru'}
@@ -31,20 +31,20 @@ const Registration = () => {
                             </div>
                             <div className='col'>
                                 <InputField
-                                    fieldId={'birthdate'}
+                                    id={'birthdate'}
                                     labelText='Дата рождения'
                                     inputType={'date'}
                                 />
                             </div>
                         </div>
                         <InputField
-                            fieldId={'password'}
+                            id={'password'}
                             labelText='Пароль'
                             inputType={'password'}
                             isRequired
                         />
                         <InputField
-                            fieldId={'confirmPassword'}
+                            id={'confirmPassword'}
                             labelText='Повторите пароль'
                             inputType={'password'}
                             isRequired
