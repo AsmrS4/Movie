@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { InputField } from '../components/Input/InputField'
-import { loginUser } from '../services/Auth'
+import { loginUser } from '../services/Auth';
+import { ErrorToast } from '../utils/notification/Error';
 
 const Login = () => {
     const [login, setLogin] = useState('');
@@ -15,7 +17,7 @@ const Login = () => {
             localStorage.setItem('token', result.token);
             navigate('/movies');
         } else {
-            console.log(result)
+            return ErrorToast('Неверный логин или пароль');
         }
     }
 
@@ -44,6 +46,7 @@ const Login = () => {
                         <button type='submit' className='btn mt-3 w-100'>Войти</button>
                     </form>
                 </div>
+                <ToastContainer limit={3} />
             </main>
         </>
     )

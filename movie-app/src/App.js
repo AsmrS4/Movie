@@ -1,11 +1,14 @@
+import { Route, Routes } from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css";
+
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Home from './pages/Home';
-import { Route, Routes } from 'react-router-dom';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Favorites from './pages/Favorites';
+
 
 function App() {
   return (

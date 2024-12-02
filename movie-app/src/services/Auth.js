@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const loginUser = async (data) => {
     try {
-        const response = await axios.post('https://react-midterm.kreosoft.space/api/account/login', data);
+        const response = await axios.post(`${process.env.REACT_APP_API}/account/login`, data);
         if (response.status === 200) {
             return response.data
         }
@@ -15,9 +15,9 @@ export const loginUser = async (data) => {
 export const logoutUser = async () => {
     let token = localStorage.getItem('token')
     try {
-        const response = await axios.post('https://react-midterm.kreosoft.space/api/account/logout', token);
-        if (response.status === 200) {
-            return response
+        const response = await axios.post(`${process.env.REACT_APP_API}/account/logout`, token);
+        if (response.status !== 500) {
+            return true
         }
     } catch (error) {
         console.error(error);
@@ -27,7 +27,7 @@ export const logoutUser = async () => {
 
 export const registerUser = async (data) => {
     try {
-        const response = await axios.post('https://react-midterm.kreosoft.space/api/account/register', data);
+        const response = await axios.post(`${process.env.REACT_APP_API}/account/register`, data);
         if (response.status === 200) {
             return response.data
         }

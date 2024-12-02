@@ -2,7 +2,7 @@
 @import '../../scss/mixins.scss';
 
 .movie-header {
-    //background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 10%, rgba(233, 233, 233, 0) 100%);
+
     .navbar {
         @include flex-row;
         align-items: center;
@@ -68,6 +68,4 @@
             }
         }
     }
-
-
 }

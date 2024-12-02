@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import './Header.scss';
 import logo from '../../assets/cinema.svg';
-import { Link, useLocation } from 'react-router-dom';
+
+import { logoutUser } from '../../services/Auth';
 
 const Header = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    const logout = async () => {
+        const result = await logoutUser();
+        if (result) {
+            localStorage.clear();
+            navigate('/login')
+        }
+    }
+    let token = localStorage.getItem('token');
     return (
         <>
             <header className="movie-header">
@@ -20,15 +32,30 @@ const Header = () => {
                     <div className="movie-header__center-child">
                         <Link to='/movies' className={location.pathname.includes("/movies")
                             ? 'active' : ''} >Фильмы</Link>
-                        <Link to='/favorites' className={location.pathname.includes("/favorites")
-                            ? 'active' : ''}>Избранное</Link>
-                        <Link to='/profile' className={location.pathname.includes("/profile")
-                            ? 'active' : ''}>Профиль</Link>
+                        {!token ?
+                            <>
+                            </>
+                            :
+                            <>
+                                <Link to='/favorites' className={location.pathname.includes("/favorites")
+                                    ? 'active' : ''}>Избранное</Link>
+                                <Link to='/profile' className={location.pathname.includes("/profile")
+                                    ? 'active' : ''}>Профиль</Link>
+                            </>
+                        }
                     </div>
                     <div className="movie-header__right-child">
                         <div className="d-flex flex-row">
-                            <Link to='/login' ><span>Войти</span></Link>
-                            <Link to='/registration' ><span>Регистрация</span></Link>
+                            {!token ?
+                                <>
+                                    <Link to='/login' ><span>Войти</span></Link>
+                                    <Link to='/registration' ><span>Регистрация</span></Link>
+                                </> :
+                                <>
+                                    <span>Войти</span>
+                                    <span onClick={logout}>Выйти</span>
+                                </>
+                            }
                         </div>
                     </div>
                 </nav>
