@@ -12,7 +12,7 @@ const Login = () => {
 
     const handleLoginForm = async (e) => {
         e.preventDefault();
-        const result = await loginUser({ username: login, password: password });
+        const result = await loginUser({ username: login.replaceAll(' ', ''), password: password });
         if (result) {
             localStorage.setItem('token', result.token);
             navigate('/movies');
