@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { ToastContainer } from 'react-toastify';
+
 import { InputField } from '../components/Input/InputField'
 import { editUserProfile, getUserProfile } from '../services/UserService'
 import avatar from '../assets/userAvatar.jpg';
 import SuccessToast from '../utils/notification/Success';
-import { ToastContainer } from 'react-toastify';
+
 import { ErrorToast } from '../utils/notification/Error';
+import { sliceDate } from '../utils/converter/converter';
+import { dateIsValid } from '../utils/converter/converter';
+
 
 const Profile = () => {
     const [userId, setId] = useState('');
@@ -13,47 +18,51 @@ const Profile = () => {
     const [email, setEmail] = useState('');
     const [username, setUserName] = useState('');
     const [birthdate, setBirthDate] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);//общий state - redux
     //todo: добавить скелетоны для инпутов и фото профиля
 
-    useEffect(()=> {
+    useEffect(() => {
         setIsLoading(true);
-        const getProfile = async() => {
+        const getProfile = async () => {
             const result = await getUserProfile();
-            if(result) {
+            if (result) {
                 setEmail(result.email);
                 setUserName(result.name);
                 setUserLogin(result.nickName);
                 setImg(result.avatarLink);
-                setBirthDate(result.birthdate);
+                setBirthDate(sliceDate(result.birthDate));
                 setId(result.id);
                 setIsLoading(false);
             }
-            console.log(result)
         }
         getProfile()
     }, [])
 
-    const handleProfile = async(e) => {
+    const handleProfile = async (e) => {
         e.preventDefault();
+        if (dateIsValid(birthdate)) {
+            const result = await editUserProfile(
+                {
+                    id: userId,
+                    nickName: userLogin,
+                    email: email,
+                    avatarLink: profileImg,
+                    name: username,
+                    birthdate: birthdate
+                }
+            )
 
-        const result = await editUserProfile(
-            {
-                id: userId,
-                nickName: userLogin,
-                email: email,
-                avatarLink: profileImg,
-                name: username,
-                birthdate: birthdate
+            if (result) {
+                await getUserProfile();
+                SuccessToast('Профиль успешно обновлен');
+            } else {
+                ErrorToast('Что-то пошло не так! Проверьте введенные данные');
             }
-        )
 
-        if(result) {
-            await getUserProfile();
-            SuccessToast('Профиль успешно обновлен');
         } else {
-            ErrorToast('Что-то пошло не так! Проверьте введенные данные')
+            if (!dateIsValid(birthdate)) ErrorToast('Дата рождения не может быть больше текущего дня');
         }
+
     }
 
     return (
@@ -62,7 +71,7 @@ const Profile = () => {
                 <div className='profile-wrapper'>
                     <div className='profile-container'>
                         <div className='profile-container__img'>
-                            <img src={profileImg? profileImg: avatar} alt='Фото профиля' />
+                            <img src={profileImg ? profileImg : avatar} alt='Фото профиля' />
                             <h5>{userLogin}</h5>
                         </div>
                         <form onSubmit={handleProfile} className='profile-container__form'>
@@ -72,7 +81,7 @@ const Profile = () => {
                                 inputType={'email'}
                                 value={email}
                                 placeholderText={'example@mail.ru'}
-                                onChangeInput = {setEmail}
+                                onChangeInput={setEmail}
                                 isRequired
                             />
                             <InputField

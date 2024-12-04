@@ -8,13 +8,9 @@ import { logoutUser } from '../../services/Auth';
 
 const Header = () => {
     const location = useLocation();
-    const navigate = useNavigate();
+
     const logout = async () => {
-        const result = await logoutUser();
-        if (result) {
-            localStorage.clear();
-            navigate('/login')
-        }
+        await logoutUser();
     }
     let token = localStorage.getItem('token');
     return (
