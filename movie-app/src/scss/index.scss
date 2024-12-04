@@ -35,7 +35,6 @@ a {
 
 .movie-main {
     flex: 1;
-
     box-sizing: border-box;
     padding: 140px 0;
     padding-bottom: 40px;
@@ -49,9 +48,9 @@ a {
 }
 
 .movie-content__movie-holder {
-
+    
     @media(width > 1280px) {
-        @include n-columns(4);
+        @include n-columns(3);
     }
 
     @media(720px < width <=1280px) {
@@ -62,6 +61,14 @@ a {
         @include n-columns(2);
     }
 
+}
+
+.main-wrapper {
+    height: 100vh;
+}
+
+.favorite-wrapper {
+    height: 100vh;    
 }
 
 .profile-wrapper {
@@ -173,4 +180,12 @@ button.btn {
         background-color: $orange-color !important;
         color: $white-color !important;
     }
+}
+
+.overlow-hidden {
+    max-width: 70px;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

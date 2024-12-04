@@ -1,7 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MovieCard from '../components/Card';
+import { getMovies } from '../services/MovieService';
 
 const Home = () => {
+    const [movies, setMovies] = useState([]);
+    const [page, setPage] = useState(4);
+
+    useEffect(() => {
+        const getResult = async () => {
+            const result = await getMovies(page);
+            console.log(result.movies)
+            setMovies(result.movies)
+        }
+        getResult();
+    }, [])
+
     return (
         <>
             <main className="movie-main">
@@ -14,16 +27,12 @@ const Home = () => {
               </div>
             </div> */}
                         <div className="movie-content__movie-holder">
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
-                            <MovieCard />
+                            {movies.map(movie => {
+                                return (
+                                    <MovieCard
+                                        {...movie}
+                                    />)
+                            })}
                         </div>
                     </section>
                     <div className='movie-pagination'></div>
