@@ -1,0 +1,36 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.movie-pagination {
+    @include flex-row;
+    align-items: center;
+    width: auto;
+    margin-bottom: 40px;
+    .pagination-item {
+
+        @include flex-column;
+        @include all-centered;
+        box-sizing: border-box;
+        margin: 0 5px;
+        height: 40px;
+        width: 40px;
+        background-color: inherit;
+        border-radius: 8px;
+        border: 1px solid $orange-color;
+        color: $orange-color;
+        font-size: 16px;
+        font-weight: 400;
+        transition: 0.3s ease-in-out;
+
+        &:hover {
+            background-color: $orange-color;
+            color: $white-color;
+        }
+    }
+
+    .pagination-item.active {
+        background-color: $orange-color;
+        color: $white-color;
+    }
+
+}

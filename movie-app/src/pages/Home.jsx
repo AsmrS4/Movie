@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import MovieCard from '../components/Card';
-import { getMovies } from '../services/MovieService';
+import { ToastContainer } from 'react-toastify';
 
+import MovieCard from '../components/Card';
+import Pagination from '../components/Pagination';
+import { getMovies } from '../services/MovieService';
+import { ErrorToast } from '../utils/notification/Error';
+
+
+//TODO: добавить скелетоны для загрузки
 const Home = () => {
     const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(4);
+    const [page, setPage] = useState(1);
+    const [pages, setPages] = useState([]);
 
     useEffect(() => {
         const getResult = async () => {
             const result = await getMovies(page);
-            console.log(result.movies)
-            setMovies(result.movies)
+            if (result) {
+                setMovies(result.movies);
+                setPages(result.pageInfo);
+            } else {
+                ErrorToast('Не удалось получить данные')
+            }
         }
         getResult();
-    }, [])
+    }, [page])
 
     return (
         <>
@@ -35,10 +46,10 @@ const Home = () => {
                             })}
                         </div>
                     </section>
-                    <div className='movie-pagination'></div>
+                    <Pagination onClickPage={setPage} pageCount={pages.pageCount} currentPage={pages.currentPage} />
                 </div>
             </main>
-
+            <ToastContainer limit={1}/>
         </>
     )
 }
