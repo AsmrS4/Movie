@@ -48,7 +48,7 @@ a {
 }
 
 .movie-content__movie-holder {
-    
+    min-height: 400px;
     @media(width > 1280px) {
         @include n-columns(3);
     }
@@ -80,6 +80,7 @@ a {
     padding: 10px;
     .profile-container {
         width: 100%;
+        min-height: 400px;
         @include flex-row;
         align-items: start;
         justify-content: space-between;
