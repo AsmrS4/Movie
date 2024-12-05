@@ -69,8 +69,18 @@ a {
     height: 100%;
 }
 
-.favorite-wrapper {
-    height: 100vh;    
+.favorites-wrapper {
+    @include flex-column;
+    @include all-centered;
+    height: 100vh;
+    max-width: 996px;
+    width: 100%;
+    .favorite-holder {
+        @include flex-column;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }    
 }
 
 .profile-wrapper {

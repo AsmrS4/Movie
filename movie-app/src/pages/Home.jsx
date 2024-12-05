@@ -6,6 +6,7 @@ import Pagination from '../components/Pagination';
 import { getMovies } from '../services/MovieService';
 import { ErrorToast } from '../utils/notification/Error';
 import CardLoader from '../components/Loaders/CardLoader';
+import { addToFavorite } from '../services/FavoriteMovie';
 
 //TODO: добавить скелетоны для загрузки
 const Home = () => {
@@ -21,7 +22,7 @@ const Home = () => {
             if (result) {
                 setMovies(result.movies);
                 setPages(result.pageInfo);
-
+                console.log(movies)
                 setLoading(false);
             } else {
                 ErrorToast('Не удалось получить данные')

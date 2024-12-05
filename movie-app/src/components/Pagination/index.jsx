@@ -27,7 +27,6 @@ const Pagination = ({ onClickPage, pageCount, currentPage, loading = true }) => 
         for (let i = start; i <= end; i++) {
             pages.push(i);
         }
-        console.log(pages)
         return pages;
     }
 

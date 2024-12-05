@@ -9,7 +9,9 @@ import SuccessToast from '../utils/notification/Success';
 import { ErrorToast } from '../utils/notification/Error';
 import { sliceDate } from '../utils/converter/converter';
 import { dateIsValid } from '../utils/converter/converter';
-
+import ImageLoader from '../components/Loaders/ImageLoader';
+import InputLoader from '../components/Loaders/InputLoader';
+import { delay } from '../utils/delay';
 
 const Profile = () => {
     const [userId, setId] = useState('');
@@ -24,6 +26,7 @@ const Profile = () => {
     useEffect(() => {
         setIsLoading(true);
         const getProfile = async () => {
+            await delay(1000)
             const result = await getUserProfile();
             if (result) {
                 setEmail(result.email);
@@ -32,6 +35,7 @@ const Profile = () => {
                 setImg(result.avatarLink);
                 setBirthDate(sliceDate(result.birthDate));
                 setId(result.id);
+
                 setIsLoading(false);
             }
         }
@@ -71,43 +75,57 @@ const Profile = () => {
                 <div className='profile-wrapper'>
                     <div className='profile-container'>
                         <div className='profile-container__img'>
-                            <img src={profileImg ? profileImg : avatar} alt='Фото профиля' />
-                            <h5>{userLogin}</h5>
+                            {isLoading
+                                ?
+                                <ImageLoader />
+                                :
+                                <>
+                                    <img src={profileImg ? profileImg : avatar} alt='Фото профиля' />
+                                    <h5>{userLogin}</h5>
+                                </>}
                         </div>
                         <form onSubmit={handleProfile} className='profile-container__form'>
-                            <InputField
-                                id={'email'}
-                                labelText='Email'
-                                inputType={'email'}
-                                value={email}
-                                placeholderText={'example@mail.ru'}
-                                onChangeInput={setEmail}
-                                isRequired
-                            />
-                            <InputField
-                                id={'userName'}
-                                labelText='ФИО'
-                                inputType={'text'}
-                                value={username}
-                                onChangeInput={setUserName}
-                                isRequired
-                            />
-                            <InputField
-                                id={'avatarLink'}
-                                labelText='URL-картинки'
-                                value={profileImg}
-                                inputType={'text'}
-                                onChangeInput={setImg}
-                            />
-                            <InputField
-                                id={'birthdate'}
-                                labelText='Дата рождения'
-                                inputType={'date'}
-                                value={birthdate}
-                                onChangeInput={setBirthDate}
-                                required
-                            />
-                            <button className='btn'>Редактировать</button>
+                            {isLoading
+                                ?
+                                [...Array(4)].map((input, index) => {
+                                    return <InputLoader key={index}/>
+                                })
+                                :
+                                <>
+                                    <InputField
+                                        id={'email'}
+                                        labelText='Email'
+                                        inputType={'email'}
+                                        value={email}
+                                        placeholderText={'example@mail.ru'}
+                                        onChangeInput={setEmail}
+                                        isRequired
+                                    />
+                                    <InputField
+                                        id={'userName'}
+                                        labelText='ФИО'
+                                        inputType={'text'}
+                                        value={username}
+                                        onChangeInput={setUserName}
+                                        isRequired
+                                    />
+                                    <InputField
+                                        id={'avatarLink'}
+                                        labelText='URL-картинки'
+                                        value={profileImg}
+                                        inputType={'text'}
+                                        onChangeInput={setImg}
+                                    />
+                                    <InputField
+                                        id={'birthdate'}
+                                        labelText='Дата рождения'
+                                        inputType={'date'}
+                                        value={birthdate}
+                                        onChangeInput={setBirthDate}
+                                        required
+                                    />
+                                </>}
+                            <button className='btn' disabled={isLoading}>Редактировать</button>
                         </form>
                     </div>
                 </div>

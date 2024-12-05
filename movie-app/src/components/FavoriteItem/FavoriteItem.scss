@@ -1,0 +1,43 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.favorite-card {
+    @include flex-row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #202020;
+    margin-bottom: 10px;
+    //border: 1px solid $orange-color;
+    
+    .favorite-card__body {
+        @include flex-row;
+
+        .favorite-card__img {
+            height: 140px;
+            border-radius: 4px;
+            overflow: hidden
+        }
+        .favorite-card__description {
+            @include flex-column;
+            align-items: start;
+            margin-left: 24px;
+            color: $white-color;
+        }
+    }
+    .favorite-card__remove-btn {
+        width: auto;
+        height: auto;
+        box-sizing: border-box;
+        padding: 10px 20px;
+        
+        &:hover {
+            background-color: red !important;
+            border-color: red !important;
+        }
+    }
+}
