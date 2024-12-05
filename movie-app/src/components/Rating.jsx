@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-const Rating = ({ totalRating }) => {
+const Rating = ({ reviews }) => {
 
     const [color, setColor] = useState('')
+    const [totalRating, setRating] = useState(0);
+    const handleRating = () => {
+        setRating((reviews.reduce((sum, item) => sum + item.rating, 0) / reviews.length).toFixed(1))
+    }
 
     useEffect(() => {
         if(totalRating >= 7.5) {
@@ -14,6 +18,8 @@ const Rating = ({ totalRating }) => {
         if(totalRating < 5.0) {
             setColor('bg-danger')
         }
+        
+        handleRating();
     }, [totalRating])
 
     return (

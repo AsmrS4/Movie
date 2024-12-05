@@ -15,16 +15,6 @@ const MovieCard = ({
     reviews = []
 }) => {
 
-    const [totalRating, setRating] = useState(0);
-
-    const handleRating = () => {
-        setRating((reviews.reduce((sum, item) => sum + item.rating, 0) / reviews.length).toFixed(1))
-    }
-
-    useEffect(() => {
-        handleRating()
-    }, [])
-
     return (
         <>
             <div style={{ backgroundImage: `url(${poster})` }} className="movie-card">
@@ -34,7 +24,7 @@ const MovieCard = ({
                     :
                     <>
                         <div className='movie-card__rating'>
-                            <Rating totalRating={totalRating} />
+                            <Rating reviews={reviews} />
                         </div>
                         <div className='movie-card__info'>
                             <div className='movie-card__info-left'>
