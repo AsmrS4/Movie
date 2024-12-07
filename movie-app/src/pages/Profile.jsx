@@ -21,7 +21,6 @@ const Profile = () => {
     const [username, setUserName] = useState('');
     const [birthdate, setBirthDate] = useState('');
     const [isLoading, setIsLoading] = useState(true);//общий state - redux
-    //todo: добавить скелетоны для инпутов и фото профиля
 
     useEffect(() => {
         setIsLoading(true);

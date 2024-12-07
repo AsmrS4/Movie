@@ -3,12 +3,12 @@ import ContentLoader from "react-content-loader"
 
 const CardLoader = ({cardH = 360, cardW = 240}) => (
   <ContentLoader 
-    speed={3}
+    speed={2}
     width={cardW}
     height={cardH}
     viewBox={`0 0 ${cardW} ${cardH}`}
     backgroundColor="#4d4d4d"
-    foregroundColor="#d1d1d1"
+    foregroundColor="#5d5d5d"
   >
     <rect x="0" y="0" rx="4" ry="4" width="240" height="270" /> 
     <rect x="0" y="290" rx="4" ry="4" width="188" height="28" /> 

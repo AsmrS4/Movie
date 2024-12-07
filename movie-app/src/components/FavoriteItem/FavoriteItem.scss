@@ -8,11 +8,11 @@
     width: 100%;
     height: auto;
     box-sizing: border-box;
-    padding: 10px 15px;
+    padding: 15px;
     border-radius: 4px;
+    border: 2px solid #2b2b2b;
     background-color: #202020;
     margin-bottom: 10px;
-    //border: 1px solid $orange-color;
     
     .favorite-card__body {
         @include flex-row;
@@ -22,6 +22,7 @@
             border-radius: 4px;
             overflow: hidden
         }
+        
         .favorite-card__description {
             @include flex-column;
             align-items: start;
@@ -29,6 +30,7 @@
             color: $white-color;
         }
     }
+
     .favorite-card__remove-btn {
         width: auto;
         height: auto;
@@ -40,4 +42,5 @@
             border-color: red !important;
         }
     }
+   
 }
