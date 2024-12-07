@@ -20,8 +20,6 @@ const FavoriteItem = (
     }
 ) => {
 
-
-
     return (
         <>
             <div className='favorite-card'>
@@ -45,7 +43,6 @@ const FavoriteItem = (
                             onRemove(e, name)
                         }}>Удалить</button>
                     </>}
-
             </div>
         </>
     )

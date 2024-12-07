@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { HandySvg } from 'handy-svg';
+
+import arrowLeft from '../../assets/arrow_left.svg';
+import arrowRight from '../../assets/arrow_right.svg';
 import PaginationLoader from '../Loaders/PaginationLoader';
 import './Pagination.scss'
+
+const ArrowIcon = ({iconSrc}) => {
+    return (
+        <HandySvg
+            src={iconSrc}
+            className="icon"
+            width="22"
+            height="22"
+        />
+    )
+}
 
 const Pagination = ({ onClickPage, pageCount, currentPage, loading = true }) => {
     const [activePage, setActivePage] = useState(1);
@@ -51,12 +66,13 @@ const Pagination = ({ onClickPage, pageCount, currentPage, loading = true }) => 
                     })
                     :
                     <>
-                        <div className='pagination-item' onClick={prevPage}>{'<'}</div>
+                        <div className='pagination-item' onClick={prevPage}><ArrowIcon iconSrc={arrowLeft}/>
+                        </div>
                         {slicePages().map(page => {
                             return <div className={page === currentPage ? 'pagination-item active' : 'pagination-item'}
                                 value={page} onClick={handlePage}>{page}</div>
                         })}
-                        <div className='pagination-item' onClick={nextPage}>{'>'}</div>
+                        <div className='pagination-item' onClick={nextPage}><ArrowIcon iconSrc={arrowRight}/></div>
                     </>}
             </section>
         </>

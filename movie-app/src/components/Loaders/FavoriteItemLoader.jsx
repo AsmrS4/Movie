@@ -3,12 +3,12 @@ import ContentLoader from "react-content-loader"
 
 const FavoriteItemLoader = () => (
   <ContentLoader 
-    speed={3}
+    speed={2}
     width={900}
     height={150}
     viewBox="0 0 900 150"
     backgroundColor="#4d4d4d"
-    foregroundColor="#d1d1d1"
+    foregroundColor="#5d5d5d"
 
   >
     <rect x="0" y="0" rx="6" ry="6" width="120" height="150" /> 

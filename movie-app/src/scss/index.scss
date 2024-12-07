@@ -21,6 +21,8 @@ a {
     color: inherit !important;
 }
 
+
+
 ::-webkit-scrollbar {
     width: 0;
 }
@@ -50,7 +52,7 @@ a {
 .movie-content__movie-holder {
     min-height: 400px;
     @media(width > 1280px) {
-        @include n-columns(3);
+        @include n-columns(4);
     }
 
     @media(720px < width <=1280px) {
