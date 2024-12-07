@@ -12,6 +12,15 @@ body {
     scrollbar-width: none;
 }
 
+html,
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: $bg-color;
+}
+
 * {
     font-family: 'Roboto', system-ui;
 }
@@ -51,6 +60,7 @@ a {
 
 .movie-content__movie-holder {
     min-height: 400px;
+
     @media(width > 1280px) {
         @include n-columns(4);
     }
@@ -59,7 +69,7 @@ a {
         @include n-columns(3);
     }
 
-    @media(360px <= width <=720px) {
+    @media(360px <=width <=720px) {
         @include n-columns(2);
     }
 
@@ -71,18 +81,85 @@ a {
     height: 100%;
 }
 
+.movie-wrapper {
+    @include flex-column;
+    align-items: center;
+    max-width: 996px;
+    width: 100%;
+    height: 100%
+}
+
+.movie-container {
+    @include flex-column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+
+    .movie-info {
+        @include flex-row;
+        justify-content: space-between;
+        width: 100%;
+
+        img {
+            border-radius: 8px;
+            width: 300px;
+            height: 450px
+        }
+
+        .movie-description {
+
+            @include flex-column;
+            align-items: start;
+            justify-content: space-between;
+            max-width: 576px;
+
+            div {
+                h2 {
+                    color: $white-color;
+                }
+
+                p {
+                    color: $white-color;
+                }
+            }
+
+            .movie-description__info {
+                margin-top: 50px;
+                @include flex-column;
+                width: 100%;
+                align-items: start;
+                align-self: flex-end;
+                color: $white-color;
+
+                .description-item {
+                    @include flex-row;
+                    align-items: center;
+                    justify-content: space-between;
+                    color: $non-active-color;
+                    border-bottom: 1px solid $non-active-color;
+                    width: 100%;
+                    padding: 4px 0;
+                    margin-bottom: 4px
+                }
+            }
+        }
+
+    }
+}
+
 .favorites-wrapper {
     @include flex-column;
     @include all-centered;
     height: 100vh;
     max-width: 996px;
     width: 100%;
+
     .favorite-holder {
         @include flex-column;
         align-items: center;
         height: 100%;
         width: 100%;
-    }    
+    }
 }
 
 .profile-wrapper {
@@ -90,6 +167,7 @@ a {
     height: auto;
     width: 100%;
     padding: 10px;
+
     .profile-container {
         width: 100%;
         min-height: 400px;
@@ -100,13 +178,15 @@ a {
         .profile-container__img {
             @include flex-column;
             width: 228px;
+
             img {
                 width: 100%;
                 border-radius: 10px;
                 margin-bottom: 20px;
             }
 
-            h5, h6 {
+            h5,
+            h6 {
                 color: $white-color;
             }
         }
@@ -138,7 +218,7 @@ a {
                     }
                 }
             }
-            
+
             .btn {
                 width: 100%;
                 margin-top: 20px;
@@ -203,4 +283,15 @@ button.btn {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.span {
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    width: auto;
+    height: auto;
+    color: $white-color
 }

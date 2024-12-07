@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import MovieCard from '../components/Card';
 import Pagination from '../components/Pagination';
 import { getMovies } from '../services/MovieService';
 import { ErrorToast } from '../utils/notification/Error';
-import CardLoader from '../components/Loaders/CardLoader';
-import { addToFavorite } from '../services/FavoriteMovie';
 
-//TODO: добавить скелетоны для загрузки
+
+
 const Home = () => {
     const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1);
+    const [currPage, setPage] = useState(1);
     const [pages, setPages] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const getResult = async () => {
             setLoading(true);
-            const result = await getMovies(page);
+            const result = await getMovies(currPage);
             if (result) {
+                
                 setMovies(result.movies);
                 setPages(result.pageInfo);
-                console.log(movies)
                 setLoading(false);
             } else {
                 ErrorToast('Не удалось получить данные')
             }
         }
         getResult();
-    }, [page])
+    }, [currPage])
 
     return (
         <>
@@ -53,7 +53,7 @@ const Home = () => {
                             })}
                         </div>
                     </section>
-                    <Pagination onClickPage={setPage} pageCount={pages.pageCount} currentPage={pages.currentPage} loading={isLoading}/>
+                    <Pagination onClickPage={setPage} pageCount={pages.pageCount} currentPage={pages.currentPage} loading={isLoading} />
                 </div>
             </main>
             <ToastContainer limit={1} />

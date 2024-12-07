@@ -35,7 +35,7 @@ const FavoriteItem = (
                             <div className='favorite-card__description'>
                                 <h3>{name}</h3>
                                 <span>{year}</span>
-                                <span>{genres.map(genre => { return genre.name + ' ' })}</span>
+                                <span>{genres.map((genre, index) => { return index !== genres.length - 1 ? genre.name + ', ' : genre.name })}</span>
                                 <span>{country}</span>
                             </div>
                         </div>
