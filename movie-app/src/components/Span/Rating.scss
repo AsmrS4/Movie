@@ -1,0 +1,14 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.rating-span {
+    box-sizing: border-box;
+    border-radius: 3px;
+    padding: 2px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    width: auto;
+    height: auto;
+    background-color: $orange-color;
+    color: $white-color;
+}

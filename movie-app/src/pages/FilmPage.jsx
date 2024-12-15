@@ -3,16 +3,17 @@ import { useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { PosterLoader, TitleLoader } from '../components/Loaders/PosterLoader';
-import Span from '../components/Span';
+import ReviewCard from '../components/Review';
+import Span from '../components/Span/Span';
 import { addToFavorite, fetchFavorites, removeFromFavorites } from '../services/FavoriteMovie';
 import { fetchMovieInfo } from '../services/MovieService';
-import { delay } from '../utils/delay';
 import { ErrorToast } from '../utils/notification/Error';
 import SuccessToast from '../utils/notification/Success';
 
 const FilmPage = () => {
     const { id } = useParams();
     const [movieDetails, setMovieDetails] = useState({});
+    const [movieReviews, setReviews] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [favorites, setFavorites] = useState([]);
     const [buttonText, setText] = useState('');
@@ -29,6 +30,10 @@ const FilmPage = () => {
             setText('В избранном');
             getFavorites();
             SuccessToast('Фильм добавлен в избранное');
+        } else {
+            if (result.status === 401) {
+                ErrorToast('Вы не авторизированы!');
+            }
         }
     };
 
@@ -63,6 +68,7 @@ const FilmPage = () => {
             if (result) {
                 console.log(result);
                 setMovieDetails(result);
+                setReviews(result.reviews);
                 setLoading(false);
             } else {
                 ErrorToast('Не удалось загрузить страницу');
@@ -168,9 +174,10 @@ const FilmPage = () => {
                         </div>
 
                         <div className='reviews-wrapper'>
-                            <div className='reviews-my'></div>
                             <div className='reviews-holder'>
-                                <div className='review-card'></div>
+                                {movieReviews.map((review) => {
+                                    return <ReviewCard {...review} />;
+                                })}
                             </div>
                         </div>
                     </div>

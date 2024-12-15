@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './Card.scss';
-import Rating from '../Rating';
+import Rating from '../Span/Rating';
 import CardLoader from '../Loaders/CardLoader';
 
 const MovieCard = ({
@@ -13,30 +13,40 @@ const MovieCard = ({
     name,
     country,
     genres = [],
-    reviews = []
+    reviews = [],
 }) => {
     const navigate = useNavigate();
 
     const onClickCard = () => {
-        navigate(`/movie/${id}`)
-    }
+        navigate(`/movie/${id}`);
+    };
 
     return (
         <>
-            <div style={{ backgroundImage: `url(${poster})` }} className="movie-card">
-                {loading
-                    ?
+            <div style={{ backgroundImage: `url(${poster})` }} className='movie-card'>
+                {loading ? (
                     <CardLoader />
-                    :
+                ) : (
                     <>
                         <div className='movie-card__rating'>
-                            <Rating reviews={reviews} />
+                            <Rating
+                                value={(
+                                    reviews.reduce((sum, item) => sum + item.rating, 0) /
+                                    reviews.length
+                                ).toFixed(1)}
+                            />
                         </div>
                         <div className='movie-card__info' onClick={onClickCard}>
                             <div className='movie-card__info-left'>
                                 <span>{name}</span>
                                 <div className='description'>
-                                    <span className='overlow-hidden'>{genres.map((genre, index) => { return index !== genres.length - 1 ? genre.name + ', ' : genre.name })}</span>
+                                    <span className='overlow-hidden'>
+                                        {genres.map((genre, index) => {
+                                            return index !== genres.length - 1
+                                                ? genre.name + ', '
+                                                : genre.name;
+                                        })}
+                                    </span>
                                     <div>
                                         <span className='ms-2'>{year}</span>
                                         <span className='ms-2 overlow-hidden'>{country}</span>
@@ -44,10 +54,11 @@ const MovieCard = ({
                                 </div>
                             </div>
                         </div>
-                    </>}
+                    </>
+                )}
             </div>
         </>
-    )
-}
+    );
+};
 
-export default MovieCard
+export default MovieCard;

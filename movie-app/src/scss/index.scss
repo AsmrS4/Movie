@@ -98,15 +98,19 @@ a {
 .movie-container {
     @include flex-column;
     align-items: center;
-    padding: 20px;
     width: 100%;
 
     .movie-info {
         @include flex-row;
         justify-content: space-between;
         width: 100%;
+        background-color: #202020;
+        border-radius: 4px;
+        padding: 24px;
+        margin-bottom: 10px;
+
         .movie-poster {
-            border-radius: 8px;
+            border-radius: 4px;
             overflow: hidden;
             width: 300px;
             height: 450px;
@@ -166,6 +170,76 @@ a {
                         max-width: 450px;
                         width: auto;
                         white-space: normal;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.reviews-wrapper {
+    @include flex-column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #202020;
+    .reviews-holder {
+        @include flex-column;
+        align-items: center;
+        width: 100%;
+        min-height: 300px;
+
+        .review-card {
+            @include flex-column;
+            align-items: center;
+            width: 100%;
+            border-radius: 4px;
+            border: 2px solid #2b2b2b;
+            color: #ffffff;
+            font-size: 16px;
+            margin-top: 14px;
+
+            .review-card__header {
+                width: 100%;
+                @include flex-row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                border-bottom: 2px solid #2b2b2b;
+                .header-avatar {
+                    img {
+                        height: 32px;
+                        width: 32px;
+                        border-radius: 50%;
+                    }
+                    span {
+                        margin-left: 10px;
+                    }
+                    @include flex-row;
+                    align-items: center;
+                    justify-content: space-between;
+                }
+                .header-mark {
+                    @include flex-column;
+                    align-items: start;
+                }
+            }
+            .review-card__body {
+                padding: 10px;
+                width: 100%;
+                textarea {
+                    width: 100%;
+                    border-radius: 4px;
+                    background-color: #2b2b2b;
+                    border: none;
+                    height: 100%;
+                    resize: none;
+                    padding: 14px;
+                    margin: 0;
+                    color: #ffffff;
+                    &:focus {
+                        outline: none;
                     }
                 }
             }
