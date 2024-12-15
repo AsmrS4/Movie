@@ -1,44 +1,126 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+
+import { PosterLoader, TitleLoader } from '../components/Loaders/PosterLoader';
 import Span from '../components/Span';
+import { addToFavorite, fetchFavorites, removeFromFavorites } from '../services/FavoriteMovie';
 import { fetchMovieInfo } from '../services/MovieService';
+import { delay } from '../utils/delay';
 import { ErrorToast } from '../utils/notification/Error';
+import SuccessToast from '../utils/notification/Success';
 
 const FilmPage = () => {
-
     const { id } = useParams();
     const [movieDetails, setMovieDetails] = useState({});
     const [isLoading, setLoading] = useState(false);
+    const [favorites, setFavorites] = useState([]);
+    const [buttonText, setText] = useState('');
+
+    const isInFavorites = () => {
+        return favorites.some((item) => {
+            return String(id) === String(item.id);
+        });
+    };
+
+    const handleBtnClickAdd = async () => {
+        const result = await addToFavorite(id);
+        if (result.ok) {
+            setText('В избранном');
+            getFavorites();
+            SuccessToast('Фильм добавлен в избранное');
+        }
+    };
+
+    const handleBtnClickRemove = async () => {
+        const result = await removeFromFavorites(id);
+        if (result) {
+            setText('Добавить в избранное +');
+            getFavorites();
+            SuccessToast('Фильм удален из избранного');
+        }
+    };
 
     useEffect(() => {
-        setLoading(true)
-        const getMovieInfo = async () => {
-            const result = await fetchMovieInfo(id)
-            if (result) {
-                console.log(result)
-                setMovieDetails(result)
-                setLoading(false)
+        setText(isInFavorites() ? 'В избранном' : 'Добавить в избранное +');
+    }, [favorites]);
 
-            } else {
-                ErrorToast('Не удалось загрузить страницу')
-            }
+    const getFavorites = async () => {
+        const result = await fetchFavorites();
+        if (result) {
+            setFavorites(result.movies);
         }
-        getMovieInfo();
-        console.log(movieDetails)
-    }, [])
+    };
+
+    useEffect(() => {
+        setLoading(true);
+        const loadPage = async () => {
+            await getFavorites();
+            await getMovieInfo();
+        };
+        const getMovieInfo = async () => {
+            const result = await fetchMovieInfo(id);
+            if (result) {
+                console.log(result);
+                setMovieDetails(result);
+                setLoading(false);
+            } else {
+                ErrorToast('Не удалось загрузить страницу');
+            }
+        };
+
+        loadPage();
+    }, []);
 
     return (
         <>
             <div className='movie-main'>
-                <div className="movie-wrapper">
+                <div className='movie-wrapper'>
                     <div className='movie-container'>
                         <div className='movie-info'>
-                            <img src={movieDetails.poster} alt="Постер фильма" />
+                            <div className='movie-poster'>
+                                {isLoading ? (
+                                    <PosterLoader />
+                                ) : (
+                                    <img src={movieDetails.poster} alt='Постер фильма' />
+                                )}
+                            </div>
                             <div className='movie-description'>
                                 <div>
-                                    <h2>{movieDetails.name} {`(${movieDetails.year})`}</h2>
-                                    <p>{movieDetails.description}</p>
-                                    <button className='btn'>Добавить в избранное +</button>
+                                    {isLoading ? (
+                                        <>
+                                            <TitleLoader />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <h2>
+                                                {movieDetails.name} {`(${movieDetails.year})`}
+                                            </h2>
+                                            <p>{movieDetails.description}</p>
+                                        </>
+                                    )}
+
+                                    {isInFavorites() ? (
+                                        <>
+                                            <button
+                                                className='btn'
+                                                disabled={isLoading}
+                                                onClick={handleBtnClickRemove}
+                                            >
+                                                {buttonText}
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button
+                                                className='btn'
+                                                disabled={isLoading}
+                                                onClick={handleBtnClickAdd}
+                                            >
+                                                {buttonText}
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                                 <div className='movie-description__info'>
                                     <h4>О фильме</h4>
@@ -54,33 +136,32 @@ const FilmPage = () => {
                                         <span>Жанры</span>
                                         <span>
                                             {movieDetails?.genres?.map((genre, index) => {
-                                                return index !== movieDetails?.genres.length - 1 ? genre.name + ', ' : genre.name
+                                                return index !== movieDetails?.genres.length - 1
+                                                    ? genre.name + ', '
+                                                    : genre.name;
                                             })}
                                         </span>
                                     </div>
                                     <div className='description-item'>
                                         <span>Время</span>
-                                        <span>{movieDetails.time} мин.</span>
+                                        <span>{isLoading ? 0 : movieDetails.time} мин.</span>
                                     </div>
-                                    <div className='description-item'>
-                                        <span>Слоган</span>
-                                        <span>{movieDetails.tagline}</span>
-                                    </div>
+
                                     <div className='description-item'>
                                         <span>Режиссер</span>
                                         <span>{movieDetails.director}</span>
                                     </div>
                                     <div className='description-item'>
                                         <span>Бюджет</span>
-                                        <span>${movieDetails.budget}</span>
+                                        <span>${isLoading ? 0 : movieDetails.budget}</span>
                                     </div>
                                     <div className='description-item'>
                                         <span>Сборы в мире</span>
-                                        <span>${movieDetails.fees}</span>
+                                        <span>${isLoading ? 0 : movieDetails.fees}</span>
                                     </div>
                                     <div className='description-item'>
                                         <span>Возраст</span>
-                                        <Span value={`${movieDetails.ageLimit}+`} />
+                                        <Span value={`${isLoading ? 0 : movieDetails.ageLimit}+`} />
                                     </div>
                                 </div>
                             </div>
@@ -93,10 +174,11 @@ const FilmPage = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>{' '}
+                <ToastContainer />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default FilmPage
+export default FilmPage;

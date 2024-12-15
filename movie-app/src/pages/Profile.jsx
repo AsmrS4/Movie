@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 
-import { InputField } from '../components/Input/InputField'
-import { editUserProfile, getUserProfile } from '../services/UserService'
+import { InputField } from '../components/Input/InputField';
+import { editUserProfile, getUserProfile } from '../services/UserService';
 import avatar from '../assets/userAvatar.jpg';
 import SuccessToast from '../utils/notification/Success';
 
@@ -20,12 +20,12 @@ const Profile = () => {
     const [email, setEmail] = useState('');
     const [username, setUserName] = useState('');
     const [birthdate, setBirthDate] = useState('');
-    const [isLoading, setIsLoading] = useState(true);//общий state - redux
+    const [isLoading, setIsLoading] = useState(true); //общий state - redux
 
     useEffect(() => {
         setIsLoading(true);
         const getProfile = async () => {
-            await delay(1000)
+            await delay(1000);
             const result = await getUserProfile();
             if (result) {
                 setEmail(result.email);
@@ -37,59 +37,59 @@ const Profile = () => {
 
                 setIsLoading(false);
             }
-        }
-        getProfile()
-    }, [])
+        };
+        getProfile();
+    }, []);
 
     const handleProfile = async (e) => {
         e.preventDefault();
         if (dateIsValid(birthdate)) {
-            const result = await editUserProfile(
-                {
-                    id: userId,
-                    nickName: userLogin,
-                    email: email,
-                    avatarLink: profileImg,
-                    name: username,
-                    birthdate: birthdate
-                }
-            )
+            const result = await editUserProfile({
+                id: userId,
+                nickName: userLogin,
+                email: email,
+                avatarLink: profileImg,
+                name: username,
+                birthdate: birthdate,
+            });
 
             if (result) {
+                await delay(1000);
                 await getUserProfile();
                 SuccessToast('Профиль успешно обновлен');
             } else {
                 ErrorToast('Что-то пошло не так! Проверьте введенные данные');
             }
-
         } else {
-            if (!dateIsValid(birthdate)) ErrorToast('Дата рождения не может быть больше текущего дня');
+            if (!dateIsValid(birthdate))
+                ErrorToast('Дата рождения не может быть больше текущего дня');
         }
-
-    }
+    };
 
     return (
         <>
-            <main className="movie-main">
+            <main className='movie-main'>
                 <div className='profile-wrapper'>
                     <div className='profile-container'>
                         <div className='profile-container__img'>
-                            {isLoading
-                                ?
+                            {isLoading ? (
                                 <ImageLoader />
-                                :
+                            ) : (
                                 <>
-                                    <img src={profileImg ? profileImg : avatar} alt='Фото профиля' />
+                                    <img
+                                        src={profileImg ? profileImg : avatar}
+                                        alt='Фото профиля'
+                                    />
                                     <h5>{userLogin}</h5>
-                                </>}
+                                </>
+                            )}
                         </div>
                         <form onSubmit={handleProfile} className='profile-container__form'>
-                            {isLoading
-                                ?
-                                [...Array(4)].map((input, index) => {
-                                    return <InputLoader key={index}/>
+                            {isLoading ? (
+                                [...Array(4)].map((index) => {
+                                    return <InputLoader key={index} />;
                                 })
-                                :
+                            ) : (
                                 <>
                                     <InputField
                                         id={'email'}
@@ -123,15 +123,18 @@ const Profile = () => {
                                         onChangeInput={setBirthDate}
                                         required
                                     />
-                                </>}
-                            <button className='btn' disabled={isLoading}>Редактировать</button>
+                                </>
+                            )}
+                            <button className='btn' disabled={isLoading}>
+                                Редактировать
+                            </button>
                         </form>
                     </div>
                 </div>
                 <ToastContainer limit={3} />
             </main>
         </>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Navigate} from 'react-router-dom'
 
 export const loginUser = async (data) => {
     try {
@@ -11,7 +10,6 @@ export const loginUser = async (data) => {
         console.error(error);
     }
 }
-
 
 export const logoutUser = async () => {
     let token = localStorage.getItem('token')
@@ -26,7 +24,6 @@ export const logoutUser = async () => {
         console.error(error);
     }
 }
-
 
 export const registerUser = async (data) => {
     try {

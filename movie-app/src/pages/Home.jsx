@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import MovieCard from '../components/Card';
 import Pagination from '../components/Pagination';
 import { getMovies } from '../services/MovieService';
 import { ErrorToast } from '../utils/notification/Error';
-
-
 
 const Home = () => {
     const [movies, setMovies] = useState([]);
@@ -20,10 +17,10 @@ const Home = () => {
             setLoading(true);
             const result = await getMovies(currPage);
             if (result) {
-                
                 setMovies(result.movies);
                 setPages(result.pageInfo);
                 setLoading(false);
+                
             } else {
                 ErrorToast('Не удалось получить данные')
             }
@@ -37,11 +34,6 @@ const Home = () => {
                 <div className="main-wrapper">
                     <section className="movie-slider"></section>
                     <section className="movie-content">
-                        {/* <div className="movie-content__search">
-              <div className="search-block">
-                <input className="search-block__search-input" type="text" />
-              </div>
-            </div> */}
                         <div className="movie-content__movie-holder">
                             {(isLoading ? [...Array(6)] : movies).map((movie, index) => {
                                 return (

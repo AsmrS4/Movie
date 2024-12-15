@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const fetchFavorites = async () => {
     let token = localStorage.getItem('token');
     try {
@@ -52,7 +50,7 @@ export const removeFromFavorites = async (id) => {
             })
         })
         if (response.ok) {
-            return true
+            return response
         }
     } catch (error) {
         console.log(error)

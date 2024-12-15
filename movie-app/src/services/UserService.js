@@ -1,4 +1,3 @@
-import axios from "axios";
 import { logoutUser } from "./Auth";
 
 export const getUserProfile = async () => {
@@ -11,7 +10,6 @@ export const getUserProfile = async () => {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
-
             }
         })
 
