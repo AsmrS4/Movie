@@ -49,9 +49,7 @@ export const removeFromFavorites = async (id) => {
                 id: id
             })
         })
-        if (response.ok) {
-            return response
-        }
+        return response
     } catch (error) {
         console.log(error)
     }

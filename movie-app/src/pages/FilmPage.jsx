@@ -7,8 +7,11 @@ import ReviewCard from '../components/Review';
 import Span from '../components/Span/Span';
 import { addToFavorite, fetchFavorites, removeFromFavorites } from '../services/FavoriteMovie';
 import { fetchMovieInfo } from '../services/MovieService';
+import { delay } from '../utils/delay';
 import { ErrorToast } from '../utils/notification/Error';
 import SuccessToast from '../utils/notification/Success';
+import InfoToast from '../utils/notification/Info';
+import WarningToast from '../utils/notification/Warning';
 
 const FilmPage = () => {
     const { id } = useParams();
@@ -33,16 +36,24 @@ const FilmPage = () => {
         } else {
             if (result.status === 401) {
                 ErrorToast('Вы не авторизированы!');
+            } else {
+                ErrorToast('Не удалось выполнить запрос');
             }
         }
     };
 
     const handleBtnClickRemove = async () => {
         const result = await removeFromFavorites(id);
-        if (result) {
+        if (result.ok) {
             setText('Добавить в избранное +');
             getFavorites();
-            SuccessToast('Фильм удален из избранного');
+            WarningToast('Фильм удален из избранного');
+        } else {
+            if (result.status === 401) {
+                ErrorToast('Вы не авторизированы!');
+            } else {
+                ErrorToast('Не удалось выполнить запрос');
+            }
         }
     };
 
@@ -60,6 +71,7 @@ const FilmPage = () => {
     useEffect(() => {
         setLoading(true);
         const loadPage = async () => {
+            await delay(1000);
             await getFavorites();
             await getMovieInfo();
         };
@@ -173,13 +185,17 @@ const FilmPage = () => {
                             </div>
                         </div>
 
-                        <div className='reviews-wrapper'>
-                            <div className='reviews-holder'>
-                                {movieReviews.map((review) => {
-                                    return <ReviewCard {...review} />;
-                                })}
+                        {movieReviews.length !== 0 ? (
+                            <div className='reviews-wrapper'>
+                                <div className='reviews-holder'>
+                                    {movieReviews.map((review) => {
+                                        return <ReviewCard {...review} />;
+                                    })}
+                                </div>
                             </div>
-                        </div>
+                        ) : (
+                            ''
+                        )}
                     </div>
                 </div>{' '}
                 <ToastContainer />

@@ -10,3 +10,8 @@ const getToday = () => {
     let today = new Date();
     return today.toISOString().slice(0, 10);
 }
+
+export const transformDate = (date) => {
+    let slicedDate = sliceDate(date);
+    return slicedDate.split('-').reverse().join('.');
+}

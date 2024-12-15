@@ -1,7 +1,7 @@
 import React from 'react';
 import Rating from '../Span/Rating';
 import avatar from '../../assets/userAvatar.jpg';
-import { sliceDate } from '../../utils/converter/converter';
+import { sliceDate, transformDate } from '../../utils/converter/converter';
 
 const ReviewCard = ({
     id = '',
@@ -20,7 +20,7 @@ const ReviewCard = ({
                         <span>{isAnonymous ? 'Аноним' : author.nickName}</span>
                     </div>
                     <div className='header-mark'>
-                        <span>Дата: {sliceDate(createDateTime)}</span>
+                        <span>Дата: {transformDate(createDateTime)}</span>
                         <span>
                             Оценка: <Rating value={rating} />
                         </span>
