@@ -6,6 +6,7 @@ import { ErrorToast } from '../utils/notification/Error';
 import SuccessToast from '../utils/notification/Success';
 import { removeFromFavorites } from '../services/FavoriteMovie';
 import { delay } from '../utils/delay';
+import { EmptyContent } from '../components/Content';
 
 const Favorites = () => {
     const [favorites, setFavorites] = useState([]);
@@ -43,16 +44,31 @@ const Favorites = () => {
             <main className='movie-main'>
                 <div className='favorites-wrapper'>
                     <div className='favorite-holder '>
-                        {(isLoading ? [...Array(3)] : favorites).map((item, index) => {
-                            return (
-                                <FavoriteItem
-                                    key={index}
-                                    loading={isLoading}
-                                    {...item}
-                                    onRemove={handleRemove}
-                                />
-                            );
-                        })}
+                        {isLoading ? (
+                            [...Array(3)].map((item, index) => {
+                                return (
+                                    <FavoriteItem
+                                        key={index}
+                                        loading={isLoading}
+                                        {...item}
+                                        onRemove={handleRemove}
+                                    />
+                                );
+                            })
+                        ) : favorites.length !== 0 ? (
+                            favorites.map((item, index) => {
+                                return (
+                                    <FavoriteItem
+                                        key={index}
+                                        loading={isLoading}
+                                        {...item}
+                                        onRemove={handleRemove}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <EmptyContent title='Список пуст' />
+                        )}
                     </div>
                 </div>
             </main>

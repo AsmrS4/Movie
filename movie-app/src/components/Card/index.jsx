@@ -23,7 +23,11 @@ const MovieCard = ({
 
     return (
         <>
-            <div style={{ backgroundImage: `url(${poster})` }} className='movie-card'>
+            <div
+                style={{ backgroundImage: `url(${poster})` }}
+                className='movie-card'
+                onClick={loading ? null : onClickCard}
+            >
                 {loading ? (
                     <CardLoader />
                 ) : (
@@ -36,7 +40,7 @@ const MovieCard = ({
                                 ).toFixed(1)}
                             />
                         </div>
-                        <div className='movie-card__info' onClick={onClickCard}>
+                        <div className='movie-card__info'>
                             <div className='movie-card__info-left'>
                                 <span>{name}</span>
                                 <div className='description'>

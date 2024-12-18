@@ -20,7 +20,7 @@ const ReviewCard = ({
                         <span>{isAnonymous ? 'Аноним' : author.nickName}</span>
                     </div>
                     <div className='header-mark'>
-                        <span>Дата: {transformDate(createDateTime)}</span>
+                        <span>{transformDate(createDateTime)}</span>
                         <span>
                             Оценка: <Rating value={rating} />
                         </span>

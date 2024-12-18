@@ -197,7 +197,7 @@ const FilmPage = () => {
                             ''
                         )}
                     </div>
-                </div>{' '}
+                </div>
                 <ToastContainer />
             </div>
         </>

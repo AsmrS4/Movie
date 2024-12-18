@@ -1,0 +1,29 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.content-container {
+    @include flex-column;
+    @include all-centered;
+    width: 100%;
+    height: 100%;
+    background-color: $bg-color;
+
+    .content {
+        max-width: 468px;
+        width: 100%;
+        height: auto;
+        .content__message-wrapper {
+            @include flex-column;
+            align-items: center;
+            width: 100%;
+            height: auto;
+            box-sizing: border-box;
+            padding: 10px;
+            color: $non-active-color;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+}
