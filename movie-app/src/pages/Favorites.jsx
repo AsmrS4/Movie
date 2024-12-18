@@ -13,7 +13,7 @@ const Favorites = () => {
     const [isLoading, setLoading] = useState(true);
 
     const getFavorites = async () => {
-        await delay(1000);
+        await delay(500);
         const result = await fetchFavorites();
         if (result) {
             setFavorites(result.movies);
@@ -32,8 +32,8 @@ const Favorites = () => {
         const result = await removeFromFavorites(e.target.value);
 
         if (result) {
+            await getFavorites();
             SuccessToast(`Фильм "${name}" был удален из избранного`);
-            getFavorites();
         } else {
             ErrorToast('Не удалось выполнить запрос');
         }
@@ -72,7 +72,7 @@ const Favorites = () => {
                     </div>
                 </div>
             </main>
-            <ToastContainer limit={1} />
+            <ToastContainer limit={5} />
         </>
     );
 };

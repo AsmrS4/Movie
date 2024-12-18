@@ -38,10 +38,13 @@
         .movie-card__info-left {
             @include flex-column;
             width: 100%;
+            overflow: hidden;
             span {
                 font-size: 12px;
                 font-weight: 500;
                 text-transform: uppercase;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             .description {

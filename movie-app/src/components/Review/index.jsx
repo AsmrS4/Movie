@@ -1,7 +1,7 @@
 import React from 'react';
 import Rating from '../Span/Rating';
 import avatar from '../../assets/userAvatar.jpg';
-import { sliceDate, transformDate } from '../../utils/converter/converter';
+import { transformDate } from '../../utils/converter/converter';
 
 const ReviewCard = ({
     id = '',

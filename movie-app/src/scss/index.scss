@@ -69,7 +69,7 @@ a {
     min-height: 400px;
 
     @media (width > 1280px) {
-        @include n-columns(4);
+        @include n-columns(3);
     }
 
     @media (720px < width <=1280px) {

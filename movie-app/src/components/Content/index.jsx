@@ -14,14 +14,6 @@ export const ErrorContent = ({ message = '', code = 0, imageSrc = null }) => {
             <div className='content-container'>
                 <div className='content'>
                     <div className='content__message-wrapper'>
-                        <div className='image-wrapper'>
-                            <img
-                                height={70}
-                                width={70}
-                                src={imageSrc ? imageSrc : defaultImage}
-                                alt='Картинка'
-                            />
-                        </div>
                         <h1>{code}</h1>
                         <h2>{message}</h2>
                     </div>

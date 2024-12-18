@@ -30,7 +30,7 @@ const FavoriteItem = ({
                     <>
                         <div className='favorite-card__body'>
                             <div className='favorite-card__img'>
-                                <img height={140} src={poster} />
+                                <img height={140} src={poster} alt='Постер' />
                             </div>
                             <div className='favorite-card__description' onClick={onClickCard}>
                                 <h3>{name}</h3>

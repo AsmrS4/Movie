@@ -12,46 +12,51 @@
         //background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85) 10%, rgba(233, 233, 233, 0) 100%);
         background: $bg-color;
 
-        .movie-header__left-child {
-            .movie-logo {
-                @include flex-row;
-                align-items: center;
-                cursor: pointer;
-
-                h4 {
-                    margin: 0;
-                    margin-left: 10px;
-                    text-transform: uppercase;
-                    letter-spacing: normal;
-                    color: $white-color;
-                }
-
-                strong {
-                    color: $orange-color;
-                }
-            }
-        }
-
-        .movie-header__center-child {
+        div {
             @include flex-row;
             align-items: center;
-            justify-content: space-between;
+            .movie-header__left-child {
+                .movie-logo {
+                    @include flex-row;
+                    align-items: center;
+                    cursor: pointer;
 
-            a {
-                color: $non-active-color !important;
-                margin-right: 20px;
-                text-transform: uppercase;
-                font-size: 14px;
-                cursor: pointer;
-                transition: 0.2s ease-in-out;
+                    h4 {
+                        margin: 0;
+                        margin-left: 10px;
+                        text-transform: uppercase;
+                        letter-spacing: normal;
+                        color: $white-color;
+                    }
 
-                &:focus,
-                &:hover {
-                    color: $orange-color !important;
+                    strong {
+                        color: $orange-color;
+                    }
                 }
+            }
 
-                &.active {
-                    color: $orange-color !important;
+            .movie-header__center-child {
+                @include flex-row;
+                align-items: center;
+                justify-content: space-between;
+                margin-left: 48px;
+
+                a {
+                    color: $non-active-color !important;
+                    margin-right: 20px;
+                    text-transform: uppercase;
+                    font-size: 14px;
+                    cursor: pointer;
+                    transition: 0.2s ease-in-out;
+
+                    &:focus,
+                    &:hover {
+                        color: $orange-color !important;
+                    }
+
+                    &.active {
+                        color: $orange-color !important;
+                    }
                 }
             }
         }

@@ -9,8 +9,12 @@
     background-color: $bg-color;
 
     .content {
+        @include flex-column;
+        align-items: center;
+        justify-content: space-between;
         max-width: 468px;
         width: 100%;
+        min-height: 200px;
         height: auto;
         .content__message-wrapper {
             @include flex-column;
@@ -23,7 +27,7 @@
         }
 
         .btn {
-            width: 100%;
+            width: auto;
         }
     }
 }

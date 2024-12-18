@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { ErrorContent } from '../components/Content';
 
 import { PosterLoader, TitleLoader } from '../components/Loaders/PosterLoader';
 import ReviewCard from '../components/Review';
@@ -10,7 +11,6 @@ import { fetchMovieInfo } from '../services/MovieService';
 import { delay } from '../utils/delay';
 import { ErrorToast } from '../utils/notification/Error';
 import SuccessToast from '../utils/notification/Success';
-import InfoToast from '../utils/notification/Info';
 import WarningToast from '../utils/notification/Warning';
 
 const FilmPage = () => {
@@ -36,6 +36,8 @@ const FilmPage = () => {
         } else {
             if (result.status === 401) {
                 ErrorToast('Вы не авторизированы!');
+            } else if (result.status === 404) {
+                return <ErrorContent code={404} message={'Страница не найдена'} />;
             } else {
                 ErrorToast('Не удалось выполнить запрос');
             }

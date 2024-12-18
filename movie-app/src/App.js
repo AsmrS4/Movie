@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Favorites from './pages/Favorites';
 import FilmPage from './pages/FilmPage';
+import { ErrorContent } from './components/Content';
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
     <>
       <Header />
       <Routes>
+        <Route path='/' element={<Home/>}/>
         <Route path='/movies' element={<Home />} >
           <Route path=':page' element={<Home />} />
         </Route>
@@ -24,6 +26,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/login' element={<Login />} />
         <Route path='/registration' element={<Registration />} />
+        <Route path='*' element={<ErrorContent code={404} message={'Страница не найдена'}/>}/>
       </Routes>
       <Footer />
     </>
