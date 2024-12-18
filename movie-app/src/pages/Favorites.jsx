@@ -1,59 +1,80 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-import FavoriteItem from '../components/FavoriteItem'
+import FavoriteItem from '../components/FavoriteItem';
 import { fetchFavorites } from '../services/FavoriteMovie';
 import { ErrorToast } from '../utils/notification/Error';
 import SuccessToast from '../utils/notification/Success';
 import { removeFromFavorites } from '../services/FavoriteMovie';
 import { delay } from '../utils/delay';
+import { EmptyContent } from '../components/Content';
 
 const Favorites = () => {
     const [favorites, setFavorites] = useState([]);
     const [isLoading, setLoading] = useState(true);
+
     const getFavorites = async () => {
-        await delay(1000)
+        await delay(500);
         const result = await fetchFavorites();
         if (result) {
             setFavorites(result.movies);
             setLoading(false);
         } else {
-            ErrorToast('Не удалось получить данные')
+            ErrorToast('Не удалось получить данные');
         }
-    }
+    };
 
     useEffect(() => {
         setLoading(true);
-        
-        getFavorites()
-    }, [])
+        getFavorites();
+    }, []);
 
     const handleRemove = async (e, name) => {
-        console.log(e.target.value)
         const result = await removeFromFavorites(e.target.value);
+
         if (result) {
-            SuccessToast(`Фильм "${name}" был удален из избранного`)
-            getFavorites();
+            await getFavorites();
+            SuccessToast(`Фильм "${name}" был удален из избранного`);
         } else {
-            ErrorToast('Не удалось выполнить запрос')
+            ErrorToast('Не удалось выполнить запрос');
         }
-    }
+    };
 
     return (
         <>
-            <main className="movie-main">
+            <main className='movie-main'>
                 <div className='favorites-wrapper'>
                     <div className='favorite-holder '>
-                        {(isLoading ? [...Array(3)] :
-                            favorites).map((item, index) => {
-                                return <FavoriteItem key={index} loading={isLoading} {...item} onRemove={handleRemove} />
+                        {isLoading ? (
+                            [...Array(3)].map((item, index) => {
+                                return (
+                                    <FavoriteItem
+                                        key={index}
+                                        loading={isLoading}
+                                        {...item}
+                                        onRemove={handleRemove}
+                                    />
+                                );
                             })
-                        }
+                        ) : favorites.length !== 0 ? (
+                            favorites.map((item, index) => {
+                                return (
+                                    <FavoriteItem
+                                        key={index}
+                                        loading={isLoading}
+                                        {...item}
+                                        onRemove={handleRemove}
+                                    />
+                                );
+                            })
+                        ) : (
+                            <EmptyContent title='Список пуст' />
+                        )}
                     </div>
                 </div>
             </main>
-            <ToastContainer limit={1} />
+            <ToastContainer limit={5} />
         </>
-    )
-}
+    );
+};
 
-export default Favorites
+export default Favorites;

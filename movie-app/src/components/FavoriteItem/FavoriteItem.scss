@@ -13,18 +13,19 @@
     border: 2px solid #2b2b2b;
     background-color: #202020;
     margin-bottom: 10px;
-    
+
     .favorite-card__body {
         @include flex-row;
 
         .favorite-card__img {
             height: 140px;
             border-radius: 4px;
-            overflow: hidden
+            overflow: hidden;
         }
-        
+
         .favorite-card__description {
             @include flex-column;
+            cursor: pointer;
             align-items: start;
             margin-left: 24px;
             color: $white-color;
@@ -36,11 +37,10 @@
         height: auto;
         box-sizing: border-box;
         padding: 10px 20px;
-        
+
         &:hover {
             background-color: red !important;
             border-color: red !important;
         }
     }
-   
 }

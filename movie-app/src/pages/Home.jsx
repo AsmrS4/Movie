@@ -1,64 +1,55 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 import MovieCard from '../components/Card';
 import Pagination from '../components/Pagination';
 import { getMovies } from '../services/MovieService';
 import { ErrorToast } from '../utils/notification/Error';
-import CardLoader from '../components/Loaders/CardLoader';
-import { addToFavorite } from '../services/FavoriteMovie';
+import bannerImg from '../assets/cinema.svg';
 
-//TODO: добавить скелетоны для загрузки
 const Home = () => {
     const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1);
+    const [currPage, setPage] = useState(1);
     const [pages, setPages] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const getResult = async () => {
             setLoading(true);
-            const result = await getMovies(page);
+            const result = await getMovies(currPage);
             if (result) {
                 setMovies(result.movies);
                 setPages(result.pageInfo);
-                console.log(movies)
                 setLoading(false);
             } else {
-                ErrorToast('Не удалось получить данные')
+                ErrorToast('Не удалось получить данные');
             }
-        }
+        };
         getResult();
-    }, [page])
+    }, [currPage]);
 
     return (
         <>
-            <main className="movie-main">
-                <div className="main-wrapper">
-                    <section className="movie-slider"></section>
-                    <section className="movie-content">
-                        {/* <div className="movie-content__search">
-              <div className="search-block">
-                <input className="search-block__search-input" type="text" />
-              </div>
-            </div> */}
-                        <div className="movie-content__movie-holder">
+            <main className='movie-main'>
+                <div className='main-wrapper'>
+                    <section className='movie-content'>
+                        <div className='movie-content__movie-holder'>
                             {(isLoading ? [...Array(6)] : movies).map((movie, index) => {
-                                return (
-                                    <MovieCard
-                                        key={index}
-                                        loading={isLoading}
-                                        {...movie}
-                                    />)
+                                return <MovieCard key={index} loading={isLoading} {...movie} />;
                             })}
                         </div>
                     </section>
-                    <Pagination onClickPage={setPage} pageCount={pages.pageCount} currentPage={pages.currentPage} loading={isLoading}/>
+                    <Pagination
+                        onClickPage={setPage}
+                        pageCount={pages.pageCount}
+                        currentPage={pages.currentPage}
+                        loading={isLoading}
+                    />
                 </div>
             </main>
             <ToastContainer limit={1} />
         </>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

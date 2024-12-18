@@ -22,18 +22,6 @@
         width: 100%;
         align-items: center;
         justify-content: end;
-
-        .rating-span {
-            box-sizing: border-box;
-            border-radius: 3px;
-            padding: 2px 8px;
-            font-size: 12px;
-            font-weight: 600;
-            width: auto;
-            height: auto;
-            background-color: $orange-color;
-            color: $white-color
-        }
     }
 
     .movie-card__info {
@@ -50,10 +38,13 @@
         .movie-card__info-left {
             @include flex-column;
             width: 100%;
+            overflow: hidden;
             span {
                 font-size: 12px;
                 font-weight: 500;
                 text-transform: uppercase;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             .description {
@@ -81,5 +72,4 @@
             height: 70px;
         }
     }
-
 }

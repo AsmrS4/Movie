@@ -21,10 +21,11 @@
         font-size: 16px;
         font-weight: 400;
         transition: 0.3s ease-in-out;
+        cursor: pointer;
         .icon {
             fill: $orange-color;
         }
-        
+
         &:hover {
             background-color: $orange-color;
             color: $white-color;
@@ -43,5 +44,4 @@
         border: none;
         overflow: hidden;
     }
-
 }
